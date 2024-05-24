@@ -7,6 +7,10 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    data: {
+      type: Object,
+      default: () => ({})
     }
   },
   setup(props, { slots }) {
@@ -21,7 +25,7 @@ export default {
       const blocks = blockContext[props.name];
 
       return blocks.length
-        ? blocks.reduce((acc, block) => (block as any)({ parent: acc }), slots.default)
+        ? blocks.reduce((acc, block) => (block as any)({ parent: acc, data: props.data }), slots.default)
         : slots.default?.();
     });
 
